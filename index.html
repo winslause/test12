@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Classic Photography - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: transparent;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        .live-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+        .live-background .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            transform: scale(1);
+            transform-origin: center;
+        }
+        .live-background .bg-image.active {
+            opacity: 1;
+            animation: kenburns 12s infinite;
+        }
+        .live-background .bg-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+        }
+        .navbar {
+            background: transparent !important;
+            backdrop-filter: none;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #fff !important;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .nav-link {
+            color: #fff !important;
+            font-size: 1.5rem;
+            padding: 10px 15px;
+            position: relative;
+        }
+        .nav-link i {
+            transition: transform 0.3s;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            color: #f1c40f;
+        }
+        .nav-link:nth-child(2) i { color: #e74c3c; }
+        .nav-link:nth-child(3) i { color: #3498db; }
+        .nav-link:nth-child(4) i { color: #e67e22; }
+        .nav-link:hover i {
+            transform: scale(1.2);
+        }
+        .nav-link .tooltip-text {
+            visibility: hidden;
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1000;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .nav-link:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        @media (max-width: 991px) {
+            .navbar-nav {
+                background: rgba(0, 0, 0, 0.8);
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .nav-link {
+                text-align: center;
+                margin: 10px 0;
+            }
+            .nav-link .tooltip-text {
+                bottom: auto;
+                top: 50%;
+                left: 60px;
+                transform: translateY(-50%);
+            }
+        }
+        .header-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+        .header-section .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+        .header-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            animation: fadeInDown 1s ease-in-out;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .header-section p {
+            font-size: 1.5rem;
+            animation: fadeInDown 1s ease-in-out 0.2s;
+            animation-fill-mode: both;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            background-color: #f8f9fa;
+            overflow: visible;
+            min-height: 100vh;
+        }
+        /* Ensure all sections are visible */
+        .user-flow-section, .timeline-section, .spotlight-section, .trending-section, .services-section, .reviews-section, footer {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            min-height: 100px;
+            position: relative;
+            z-index: 2;
+        }
+        /* AOS Fallback */
+        [data-aos] {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
+        [data-aos].aos-animate {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        /* User Flow Section */
+        .user-flow-section {
+            padding: 50px 0;
+            background: linear-gradient(135deg, #2c3e50, #1a3c6d);
+            color: white;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        .user-flow-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f1c40f;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            animation: pulseText 2s infinite;
+        }
+        .user-flow-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .user-flow-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .user-flow-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+            animation: slideInLeft 1s ease-out;
+        }
+        .user-flow-card p {
+            color: #ddd;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+        .user-flow-card .btn {
+            background: linear-gradient(45deg, #f1c40f, #e67e22);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: transform 0.3s, background 0.3s;
+            animation: bounceIn 1s ease-out;
+            margin-top: 20px;
+        }
+        .user-flow-card .btn:hover {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            transform: translateY(-2px) scale(1.05);
+        }
+        .user-flow-section .row {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+        .user-flow-section .col-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        @media (max-width: 768px) {
+            .user-flow-section .col-6 {
+                flex: 0 0 50%;
+                max-width: 50%;
+                padding: 0 10px;
+            }
+            .user-flow-card {
+                padding: 20px;
+            }
+            .user-flow-card h3 {
+                font-size: 1.4rem;
+            }
+            .user-flow-card p {
+                font-size: 0.85rem;
+            }
+            .user-flow-card .btn {
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+        }
+        /* Collaboration Timeline Section */
+        .timeline-section {
+            padding: 50px 0;
+            background: #fff;
+        }
+        .timeline-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a3c6d;
+            animation: pulseText 2s infinite;
+        }
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: #f1c40f;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: growLine 2s ease-in-out;
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+        .timeline-item.left {
+            left: 0;
+        }
+        .timeline-item.right {
+            left: 50%;
+        }
+        .timeline-item .content {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .timeline-item .content:hover {
+            transform: scale(1.05);
+        }
+        .timeline-item .content h4 {
+            font-size: 1.5rem;
+            color: #1a3c6d;
+            margin-bottom: 10px;
+        }
+        .timeline-item .content p {
+            color: #555;
+            font-size: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #f1c40f;
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
+            animation: pulseDot 1.5s infinite;
+        }
+        .timeline-item.left::before {
+            right: -10px;
+        }
+        .timeline-item.right::before {
+            left: -10px;
+        }
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 20px;
+            }
+            .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item::before {
+                left: 10px;
+            }
+        }
+        /* Trending Talent Section */
+        .trending-section {
+            padding: 50px 0;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        .trending-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #f1c40f;
+            animation: pulseText 2s infinite;
+        }
+        .trending-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .trending-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        .trending-card img {
+            height: 150px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .trending-card:hover img {
+            transform: scale(1.1);
+        }
+        .trending-card .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .trending-card .card-title {
+            font-size: 1.4rem;
+            color: #1a3c6d;
+            margin-bottom: 8px;
+        }
+        .trending-card .card-text {
+            color: #555;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+        .trending-card .btn {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+        .trending-section .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @media (min-width: 992px) {
+            .trending-section .col-lg-3 {
+                flex: 0 0 25%;
+                max-width: 25%;
+                padding: 0 10px;
+            }
+        }
+        @media (max-width: 991px) {
+            .trending-section .col-lg-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+                padding: 0 10px;
+            }
+            .trending-card img {
+                height: 120px;
+            }
+            .trending-card .card-title {
+                font-size: 1.2rem;
+            }
+            .trending-card .card-text {
+                font-size: 0.8rem;
+            }
+            .trending-card .btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+        /* Spotlight Section */
+        .spotlight-section {
+            padding: 50px 0;
+            background: #fff;
+        }
+        .spotlight-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a3c6d;
+            animation: pulseText 2s infinite;
+        }
+        .spotlight-carousel .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.5s ease;
+        }
+        .spotlight-carousel .carousel-item:hover img {
+            transform: scale(1.05);
+        }
+        .spotlight-carousel .carousel-caption {
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .spotlight-carousel .carousel-caption h5 {
+            font-size: 1.8rem;
+            color: #f1c40f;
+        }
+        .spotlight-carousel .carousel-caption p {
+            color: #ddd;
+            font-size: 1rem;
+        }
+        /* Services Section - Carousel */
+        .services-section {
+            padding: 50px 0;
+            background: linear-gradient(135deg, #1a3c6d, #2c3e50);
+            color: white;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        .services-section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f1c40f;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            animation: pulseText 2s infinite;
+        }
+        .services-section p.lead {
+            font-size: 1.3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #ddd;
+            animation: fadeIn 1s ease-out;
+        }
+        .services-carousel .carousel-item {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .service-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 300px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .service-card:hover {
+            transform: translateY(-12px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        .service-card img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover img {
+            transform: scale(1.1);
+        }
+        .service-card .card-body {
+            padding: 20px;
+            background: linear-gradient(180deg, #fff, #f8f9fa);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card .card-title {
+            font-size: 1.6rem;
+            color: #1a3c6d;
+            margin-bottom: 10px;
+        }
+        .service-card .card-text {
+            color: #555;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+        .service-card .price {
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .service-card .btn-primary {
+            border-radius: 25px;
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #f1c40f, #e67e22);
+            border: none;
+            font-weight: 500;
+            transition: transform 0.3s, background 0.3s;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .service-card .btn-primary:hover {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .service-card img {
+                height: 180px;
+            }
+            .service-card .card-title {
+
+            font-size: 1.3rem;
+        }
+        .service-card .card-text {
+            font-size: 0.85rem;
+        }
+        .service-card .price {
+            font-size: 1.1rem;
+        }
+        .service-card .btn-primary {
+            font-size: 0.85rem;
+            padding: 7px 18px;
+        }
+    }
+    /* Carousel Indicators and Controls */
+    .services-carousel .carousel-indicators,
+    .reviews-carousel .carousel-indicators {
+        position: relative;
+        margin-top: 20px;
+    }
+    .services-carousel .carousel-indicators button,
+    .reviews-carousel .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ddd;
+        border: none;
+        margin: 0 5px;
+        transition: background-color 0.3s;
+    }
+    .services-carousel .carousel-indicators button.active,
+    .reviews-carousel .carousel-indicators button.active {
+        background-color: #f1c40f;
+    }
+    .services-carousel .carousel-control-prev,
+    .services-carousel .carousel-control-next,
+    .reviews-carousel .carousel-control-prev,
+    .reviews-carousel .carousel-control-next {
+        width: 60px;
+        height: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(26,60,109,0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s;
+    }
+    .services-carousel .carousel-control-prev:hover,
+    .services-carousel .carousel-control-next:hover,
+    .reviews-carousel .carousel-control-prev:hover,
+    .reviews-carousel .carousel-control-next:hover {
+        background: rgba(26,60,109,1);
+    }
+    .services-carousel .carousel-control-prev-icon,
+    .services-carousel .carousel-control-next-icon,
+    .reviews-carousel .carousel-control-prev-icon,
+    .reviews-carousel .carousel-control-next-icon {
+        background: none;
+        font-size: 2rem;
+        color: #f1c40f;
+    }
+    .services-carousel .carousel-control-prev-icon::before,
+    .reviews-carousel .carousel-control-prev-icon::before {
+        content: '\f053';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+    }
+    .services-carousel .carousel-control-next-icon::before,
+    .reviews-carousel .carousel-control-next-icon::before {
+        content: '\f054';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+    }
+    /* View More Button */
+    .view-more-btn {
+        display: block;
+        margin: 40px auto 20px;
+        padding: 15px 40px;
+        background: linear-gradient(45deg, #f1c40f, #e67e22);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        max-width: 300px;
+        text-align: center;
+    }
+    .view-more-btn:hover {
+        background: linear-gradient(45deg, #e67e22, #d35400);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    /* Reviews Section - Vertical Slideshow */
+    .reviews-section {
+        padding: 50px 0;
+        background: #f8f9fa;
+    }
+    .reviews-section h2 {
+        font-size: 2.8rem;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1a3c6d;
+        animation: pulseText 2s infinite;
+    }
+    .reviews-carousel .carousel-inner {
+        overflow: visible;
+    }
+    .reviews-carousel .carousel-item {
+        transition: transform 0.5s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 300px;
+    }
+    .reviews-carousel .carousel-item .row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .review-card {
+        border: none;
+        border-radius: 10px;
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 10px;
+    }
+    .review-card:hover {
+        transform: translateY(-5px) rotate(1deg);
+    }
+    .review-card .rating {
+        color: #f1c40f;
+        font-size: 1.1rem;
+    }
+    .review-card .card-text {
+        color: #555;
+        font-size: 0.9rem;
+        flex-grow: 1;
+    }
+    .review-card .provider {
+        font-size: 0.85rem;
+        color: #555;
+    }
+    @media (min-width: 768px) {
+        .reviews-carousel .carousel-item .row .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 10px;
+        }
+    }
+    @media (max-width: 767px) {
+        .reviews-carousel .carousel-item .row .col-md-6 {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding: 0 10px;
+        }
+        .review-card {
+            padding: 12px;
+        }
+        .review-card .rating {
+            font-size: 1rem;
+        }
+        .review-card .card-text {
+            font-size: 0.85rem;
+        }
+        .review-card .provider {
+            font-size: 0.8rem;
+        }
+    }
+    /* Floating Sidebar */
+    .floating-sidebar {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        z-index: 1000;
+        overflow: hidden;
+        transition: width 0.3s, height 0.3s;
+    }
+    .floating-sidebar.open {
+        width: 50%;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        background: rgba(26,60,109,0.95);
+        backdrop-filter: blur(12px);
+        border-radius: 0;
+        overflow-y: auto;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+    }
+    .sidebar-content {
+        padding: 20px;
+        color: #fff;
+        display: none;
+    }
+    .floating-sidebar.open .sidebar-content {
+        display: block;
+        opacity: 1;
+    }
+    .sidebar-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: #f1c40f;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+        z-index: 1001;
+        transition: transform 0.3s;
+    }
+    .sidebar-toggle:hover {
+        transform: scale(1.1);
+    }
+    .sidebar-toggle i {
+        font-size: 1.8rem;
+        color: #1a3c6d;
+    }
+    .floating-sidebar.open .sidebar-toggle {
+        display: none;
+    }
+    .sidebar-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.8rem;
+        color: #f1c40f;
+        cursor: pointer;
+        transition: transform 0.3s;
+        z-index: 1002;
+    }
+    .sidebar-close:hover {
+        transform: rotate(90deg);
+    }
+    .sidebar-section {
+        margin-bottom: 30px;
+    }
+    .sidebar-section h4 {
+        font-size: 1.3rem;
+        color: #f1c40f;
+        margin-bottom: 15px;
+    }
+    .how-it-works .step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        background: rgba(255,255,255,0.1);
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .how-it-works .step img {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .how-it-works .step p {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+    .categories a {
+        display: block;
+        color: #ddd;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+        transition: color 0.3s, transform 0.3s;
+    }
+    .categories a:hover {
+        color: #f1c40f;
+        transform: translateX(5px);
+    }
+    .featured-creators .carousel-inner .carousel-item {
+        transition: transform 0.5s ease;
+    }
+    .featured-creators .creator {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+    }
+    .featured-creators img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid #f1c40f;
+    }
+    .featured-creators p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+    .testimonials .testimonial {
+        background: rgba(255,255,255,0.15);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    .testimonials img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+    .testimonials p {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    .portfolio-previews .gallery {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .portfolio-previews img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+        transition: transform 0.3s;
+    }
+    .portfolio-previews img:hover {
+        transform: scale(1.1);
+    }
+    .trust-signals {
+        text-align: center;
+    }
+    .trust-signals img {
+        width: 70px;
+        margin: 10px;
+        filter: grayscale(80%);
+        transition: filter 0.3s, opacity 0.3s;
+        opacity: 0.8;
+    }
+    .trust-signals img:hover {
+        filter: grayscale(0);
+        opacity: 1;
+    }
+    .trust-signals .badge {
+        display: block;
+        background: #f1c40f;
+        color: #1a3c6d;
+        padding: 8px 15px;
+        border-radius: 20px;
+        margin: 10px 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    @media (max-width: 768px) {
+        .floating-sidebar.open {
+            width: 100%;
+            height: 80vh;
+            top: auto;
+            bottom: 0;
+        }
+        .sidebar-content {
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .sidebar-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background: #f1c40f;
+            border-radius: 4px;
+        }
+        .sidebar-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        .how-it-works .step p {
+            font-size: 0.85rem;
+        }
+        .categories a {
+            font-size: 0.85rem;
+        }
+        .featured-creators p {
+            font-size: 0.8rem;
+        }
+        .testimonials p {
+            font-size: 0.8rem;
+        }
+        .trust-signals .badge {
+            font-size: 0.8rem;
+        }
+    }
+    /* Footer */
+    footer {
+        background: #1a3c6d;
+        color: white;
+        padding: 50px 0;
+    }
+    footer a {
+        color: #ddd;
+        transition: color 0.3s;
+    }
+    footer a:hover {
+        color: #f1c40f;
+    }
+    /* Animations */
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes kenburns {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    @keyframes pulseText {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    @keyframes growLine {
+        0% { height: 0; }
+        100% { height: 100%; }
+    }
+    @keyframes pulseDot {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); }
+    }
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes bounceIn {
+        0% { opacity: 0; transform: scale(0.3); }
+        50% { opacity: 1; transform: scale(1.05); }
+        70% { transform: scale(0.9); }
+        100% { transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+        from { transform: translateY(100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    @media (max-width: 768px) {
+        .services-section h2, .user-flow-section h2, .timeline-section h2, .trending-section h2, .spotlight-section h2, .reviews-section h2 {
+            font-size: 2.2rem;
+        }
+        .header-section h1 {
+            font-size: 2.5rem;
+        }
+        .header-section p {
+            font-size: 1.2rem;
+        }
+        .spotlight-carousel .carousel-item img {
+            height: 300px;
+        }
+        .user-flow-section, .timeline-section, .spotlight-section, .trending-section, .services-section, .reviews-section, footer {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    }
+    /* About Us Section - Slideshow */
+.services-section {
+    padding: 50px 0;
+    background: linear-gradient(135deg, #1a3c6d, #2c3e50);
+    color: white;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+}
+.services-section h2 {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #f1c40f;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    animation: pulseText 2s infinite;
+}
+.services-section p.lead {
+    font-size: 1.3rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: #ddd;
+    animation: fadeIn 1s ease-out;
+}
+.carousel-fade .carousel-item {
+    opacity: 0;
+    transition: opacity 0.75s ease-in-out;
+}
+.carousel-fade .carousel-item.active {
+    opacity: 1;
+}
+.about-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 350px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.about-card:hover {
+    transform: translateY(-12px) rotate(2deg);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+.about-card img {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.about-card:hover img {
+    transform: scale(1.1);
+}
+.about-card .card-body {
+    padding: 20px;
+    background: linear-gradient(180deg, #fff, #f8f9fa);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.about-card .card-title {
+    font-size: 1.6rem;
+    color: #1a3c6d;
+    margin-bottom: 10px;
+}
+.about-card .card-text {
+    color: #555;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+.about-card .team-info {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.about-card .btn-primary {
+    border-radius: 25px;
+    padding: 8px 20px;
+    background: linear-gradient(45deg, #f1c40f, #e67e22);
+    border: none;
+    font-weight: 500;
+    transition: transform 0.3s, background 0.3s;
+    font-size: 0.9rem;
+    align-self: center;
+}
+.about-card .btn-primary:hover {
+    background: linear-gradient(45deg, #e67e22, #d35400);
+    transform: translateY(-2px);
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(26,60,109,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: rgba(26,60,109,1);
+}
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+    content: '\f053';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 2rem;
+    color: #f1c40f;
+}
+.carousel-control-next-icon::before {
+    content: '\f054';
+}
+@media (max-width: 768px) {
+    .about-card img {
+        height: 180px;
+    }
+    .about-card .card-title {
+        font-size: 1.4rem;
+    }
+    .about-card .card-text {
+        font-size: 0.9rem;
+    }
+    .about-card .team-info {
+        font-size: 0.85rem;
+    }
+    .about-card .btn-primary {
+        font-size: 0.85rem;
+        padding: 7px 18px;
+    }
+}
+/* Spotlight Section */
+.spotlight-section {
+    padding: 50px 0; /* important: vertical spacing */
+    background: #fff; /* important: section background color */
+}
+
+.spotlight-section h2 {
+    font-size: 2.8rem; /* important: headline size */
+    text-align: center; /* important: headline alignment */
+    margin-bottom: 40px; /* important: spacing under headline */
+    color: #1a3c6d; /* important: headline color */
+    animation: pulseText 2s infinite; /* important: animated effect */
+}
+
+.spotlight-carousel .carousel-item img {
+    height: 400px; /* important: image height */
+    object-fit: cover; /* important: image fitting */
+    border-radius: 15px; /* important: image styling */
+    transition: transform 0.5s ease; /* important: smooth zoom effect */
+}
+
+.spotlight-carousel .carousel-item:hover img {
+    transform: scale(1.05); /* important: hover zoom effect */
+}
+
+.spotlight-carousel .carousel-caption {
+    background: rgba(0,0,0,0.7); /* important: caption background */
+    border-radius: 10px; /* important: caption styling */
+    padding: 20px; /* important: caption spacing */
+    animation: fadeInUp 1s ease-out; /* important: entrance animation */
+}
+
+.spotlight-carousel .carousel-caption h5 {
+    font-size: 1.8rem; /* important: caption headline size */
+    color: #f1c40f; /* important: caption headline color */
+}
+
+.spotlight-carousel .carousel-caption p {
+    color: #ddd; /* important: caption text color */
+    font-size: 1rem; /* important: caption text size */
+}
+
+.spotlight-carousel .carousel-control-prev,
+.spotlight-carousel .carousel-control-next {
+    width: 60px; /* important: control size */
+    height: 60px; /* important: control size */
+    top: 50%; /* important: vertical centering */
+    transform: translateY(-50%); /* important: vertical centering */
+    background: rgba(26,60,109,0.7); /* important: control background */
+    border-radius: 50%; /* important: rounded controls */
+    display: flex; /* important: flex for alignment */
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s; /* important: hover transition */
+}
+
+.spotlight-carousel .carousel-control-prev:hover,
+.spotlight-carousel .carousel-control-next:hover {
+    background: rgba(26,60,109,1); /* important: hover effect */
+}
+
+.spotlight-carousel .carousel-control-prev-icon,
+.spotlight-carousel .carousel-control-next-icon {
+    background: none; /* important: remove default background */
+}
+
+.spotlight-carousel .carousel-control-prev-icon::before,
+.spotlight-carousel .carousel-control-next-icon::before {
+    content: '\f053'; /* important: FontAwesome icon */
+    font-family: 'Font Awesome 6 Free'; /* important: correct icon font */
+    font-weight: 900;
+    font-size: 2rem; /* important: icon size */
+    color: #f1c40f; /* important: icon color */
+}
+
+.spotlight-carousel .carousel-control-next-icon::before {
+    content: '\f054'; /* important: next icon override */
+}
+
+/* Ensure only one set of controls is visible */
+.spotlight-carousel .carousel-control-prev:not(:first-child),
+.spotlight-carousel .carousel-control-next:not(:first-child) {
+    display: none; /* important: prevent duplicate controls */
+}
+
+@media (max-width: 768px) {
+    .spotlight-carousel .carousel-item img {
+        height: 300px; /* important: responsive image height */
+    }
+    .spotlight-carousel .carousel-caption h5 {
+        font-size: 1.5rem; /* important: responsive caption heading */
+    }
+    .spotlight-carousel .carousel-caption p {
+        font-size: 0.9rem; /* important: responsive caption text */
+    }
+    .spotlight-section h2 {
+        font-size: 2.2rem; /* important: responsive headline */
+    }
+}
+
+</style>
+</head>
+<body>
+    <!-- Full-Screen Live Background -->
+    <div class="live-background">
+        <div class="bg-image active" style="background-image: url('https://wallpapers.com/images/featured/photographer-jrz8wy1qfbx8j0oo.jpg')">
+            <div class="overlay"></div>
+        </div>
+        <div class="bg-image" style="background-image: url('https://wallpapersok.com/images/high/birds-looking-at-hd-photography-camera-1pvg43eyhrzho8k9.jpg')">
+            <div class="overlay"></div>
+        </div>
+        <div class="bg-image" style="background-image: url('https://images.pexels.com/photos/225157/pexels-photo-225157.jpeg?cs=srgb&dl=pexels-fox-58267-225157.jpg&fm=jpg')">
+            <div class="overlay"></div>
+        </div>
+        <div class="bg-image" style="background-image: url('https://static.vecteezy.com/system/resources/thumbnails/042/721/586/small/blurred-abstract-spring-background-with-green-leaves-photo.jpeg')">
+            <div class="overlay"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">World Classic</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home">
+                            <i class="fas fa-home-alt"></i>
+                            <span class="tooltip-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#servicesGrid1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Browse Services">
+                            <i class="fas fa-camera-retro"></i>
+                            <span class="tooltip-text">Browse Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="My Profile">
+                            <i class="fas fa-user"></i>
+                            <span class="tooltip-text">My Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="tooltip-text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section with Hero Text -->
+    <section class="header-section">
+        <div class="container hero-content">
+            <h1 data-aos="fade-up">Find Your Perfect Photography Service</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Explore top-rated photographers, videographers, and editors.</p>
+        </div>
+    </section>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Floating Sidebar -->
+        <aside class="floating-sidebar" id="floatingSidebar">
+            <div class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-section how-it-works" data-aos="fade-left">
+                    <h4 id="how-it-works-title" class="typing-text"></h4>
+                    <div class="step">
+                        <img src="https://phlearn.com/wp-content/uploads/2018/09/tip-1-annie-spratt.jpg" alt="Sign Up">
+                        <p>Sign Up / Create a Profile</p>
+                    </div>
+                    <div class="step">
+                        <img src="https://www.treehugger.com/thmb/Y5reVpe2tn68Wqn4YQrO_e5vJQ0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__mnn__images__2018__06__nature-phpoto-day-squirrel-6b50719b524c4ecbb3152a32baa38367.jpg" alt="Connect">
+                        <p>Connect with Creatives</p>
+                    </div>
+                    <div class="step">
+                        <img src="https://lisaabangalore.com/wp-content/uploads/2023/03/Importance-of-Photography-3.png" alt="Collaborate">
+                        <p>Share Projects and Collaborate</p>
+                    </div>
+                </div>
+                <div class="sidebar-section categories" data-aos="fade-left" data-aos-delay="100">
+                    <h4>Top Categories</h4>
+                    <a href="/browse?service_type=editing">Wedding Photo Editing</a>
+                    <a href="/browse?service_type=editing">Fashion Retouching</a>
+                    <a href="/browse?service_type=videography">Video Color Grading</a>
+                    <a href="/browse?service_type=photography">Drone Photography</a>
+                </div>
+                <div class="sidebar-section featured-creators" data-aos="fade-left" data-aos-delay="200">
+                    <h4>Featured Creators</h4>
+                    <div id="creatorsCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="creator">
+                                    <img src="https://media.greatbigphotographyworld.com/wp-content/uploads/2022/04/photographer-holding-a-nikon-camera.jpg" alt="Creator 1">
+                                    <div>
+                                        <p><strong>Emma Stone</strong></p>
+                                        <p>Photographer | 4.9 ⭐</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="creator">
+                                    <img src="https://i1.adis.ws/i/canon/eos-r7_get-inspired_wildlife_lifestyle_4-basics-16x9_5173ad5914ca42849231a6ceffb4fd1d" alt="Creator 2">
+                                    <div>
+                                        <p><strong>James Lee</strong></p>
+                                        <p>Videographer | 4.8 ⭐</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="creator">
+                                    <img src="https://llandscapes-10674.kxcdn.com/wp-content/uploads/2021/02/person-girl-woman-night-camera-photography-1207048-pxhere.com_-scaled.jpg" alt="Creator 3">
+                                    <div>
+                                        <p><strong>Sophia Carter</strong></p>
+                                        <p>Editor | 4.7 ⭐</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#creatorsCarousel" data-bs-slide="prev">
+                            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#creatorsCarousel" data-bs-slide="next">
+                            <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-section testimonials" data-aos="fade-left" data-aos-delay="300">
+                    <h4>Client Testimonials</h4>
+                    <div class="testimonial">
+                        <img src="https://lazzatphotography.com/wp-content/uploads/2022/07/cover.jpg" alt="Client 1">
+                        <p>"Transformed my wedding photos into art!" - Sarah M.</p>
+                    </div>
+                    <div class="testimonial">
+                        <img src="https://veristopia.net/wp-content/uploads/2024/06/Squirrel-Sunning-Itself-512x410.webp" alt="Client 2">
+                        <p>"Professional and creative!" - Michael T.</p>
+                    </div>
+                </div>
+                <div class="sidebar-section portfolio-previews" data-aos="fade-left" data-aos-delay="400">
+                    <h4>Portfolio Previews</h4>
+                    <div class="gallery">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfxPedWjxkXJc2auRUiKEWahf_7ONYV_JkFQ&s" alt="Portfolio 1">
+                        <img src="https://d11kvfv4kxw5s4.cloudfront.net/wp-content/uploads/sites/15/2021/07/06132914/ec29316b-d3ec-4cf4-9513-7b4d8a9b8e02_1_105_c-1.jpeg" alt="Portfolio 2">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRPMDR129aMiBYr1KwMHBPBVvdGwlaRU9WwQ1JAz8YVQsiHzPDOqUeN8Ck5bK232AouA&usqp=CAU" alt="Portfolio 3">
+                    </div>
+                </div>
+                <div class="sidebar-section trust-signals" data-aos="fade-left" data-aos-delay="500">
+                    <h4>Trusted By</h4>
+                    <div>
+                        <img src="https://mma.prnewswire.com/media/323578/Canon_Logo.jpg?p=facebook" alt="Canon">
+                        <img src="https://www.adobe.com/ca/homepage/fragments/loggedout/pods/max-london-tkdwn-2025/media_1a28247c16efda620daedf6dd6a807cff927470a5.png?width=750&format=png&optimize=medium" alt="Adobe">
+                    </div>
+                    <p class="badge">1000+ Collaborations Completed</p>
+                    <p class="badge">Editor Vetting Process</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- User Flow Section -->
+        <section class="user-flow-section">
+            <div class="container">
+                <h2 data-aos="fade-up">Start Your Creative Journey</h2>
+                <div class="row">
+                    <div class="col-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="user-flow-card">
+                            <h3>🧭 I'm a Photographer</h3>
+                            <p>Need an editor to enhance your photos? Find top-tier editors to bring your vision to life.</p>
+                            <a href="/onboarding/photographer" class="btn btn-primary">Find an Editor</a>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="user-flow-card">
+                            <h3>🧭 I'm an Editor</h3>
+                            <p>Offer your editing skills to photographers worldwide and grow your creative business.</p>
+                            <a href="/onboarding/editor" class="btn btn-primary">Offer Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collaboration Timeline Section -->
+        <section class="timeline-section container">
+            <h2 data-aos="fade-up">💼 Your Collaboration Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="content">
+                        <h4>1. Create a Project</h4>
+                        <p>Post your project details or browse available talent.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="content">
+                        <h4>2. Get Applications</h4>
+                        <p>Receive applications from editors or connect directly.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="content">
+                        <h4>3. Chat & Review</h4>
+                        <p>Discuss your project and review portfolios to find the perfect match.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="content">
+                        <h4>4. Hire & Collaborate</h4>
+                        <p>Hire your editor and work together to create stunning results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- In the Spotlight Section -->
+<section class="spotlight-section container">
+    <h2 data-aos="fade-up">📸 In the Spotlight</h2>
+    <div id="spotlightCarousel" class="carousel slide spotlight-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213" class="d-block w-100" alt="Project 1">
+                <div class="carousel-caption">
+                    <h5>Wedding Photo Transformation</h5>
+                    <p>Before/After: Enhanced by our top editor, Sarah M.</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-aos="zoom-in" data-aos-delay="100">
+                <img src="https://www.remoteflyer.com/wp-content/uploads/2020/08/Drone-photography.jpg" class="d-block w-100" alt="Project 2">
+                <div class="carousel-caption">
+                    <h5>Drone Photography Edit</h5>
+                    <p>Stunning aerial shots refined by James L.</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://assets.videomaker.com/2019/05/NXuHBdxs-BvK5lFdX-386-C01-Editing-secondary-1.jpg" class="d-block w-100" alt="Project 3">
+                <div class="carousel-caption">
+                    <h5>Video Color Grading</h5>
+                    <p>Vibrant video edit by Sophia C.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#spotlightCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#spotlightCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+        <!-- Trending Talent Section -->
+        <section class="trending-section" id="trendingGrid1">
+            <div class="container">
+                <h2 data-aos="fade-up"> Popular Right Now</h2>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card trending-card">
+                            <img src="https://simpauldesign.com/wp-content/uploads/2021/10/reinhart-julian-WxM465oM4j4-unsplash-scaled.jpg" class="card-img-top" alt="Emma Stone">
+                            <div class="card-body">
+                                <h5 class="card-title">Emma Stone</h5>
+                                <p class="card-text">Wedding Photo Editor</p>
+                                <p>⭐ 4.9 (120 reviews)</p>
+                                <a href="/profile/emma-stone" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card trending-card">
+                            <img src="https://www.rmcad.edu/wp-content/uploads/2024/09/bottom_photo.webp" class="card-img-top" alt="James Lee">
+                            <div class="card-body">
+                                <h5 class="card-title">James Lee</h5>
+                                <p class="card-text">Drone Videographer</p>
+                                <p>⭐ 4.8 (95 reviews)</p>
+                                <a href="/profile/james-lee" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card trending-card">
+                            <img src="https://www.adorama.com/alc/wp-content/uploads/2020/10/professional-photographer-outdoor-feature.jpg" class="card-img-top" alt="Sophia Carter">
+                            <div class="card-body">
+                                <h5 class="card-title">Sophia Carter</h5>
+                                <p class="card-text">Video Color Grader</p>
+                                <p>⭐ 4.7 (80 reviews)</p>
+                                <a href="/profile/sophia-carter" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card trending-card">
+                            <img src="https://www.city-academy.com/staticresources/uploads/1653575377.jpg" class="card-img-top" alt="Michael T">
+                            <div class="card-body">
+                                <h5 class="card-title">Michael T</h5>
+                                <p class="card-text">Fashion Retoucher</p>
+                                <p>⭐ 4.6 (65 reviews)</p>
+                                <a href="/profile/michael-t" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/browse" class="view-more-btn" data-aos="fade-up" data-aos-delay="500">View More</a>
+            </div>
+        </section>
+
+        <!-- About Us Section - Slideshow -->
+<section class="services-section" id="aboutUsSection">
+    <div class="container">
+        <h2 data-aos="fade-up">About Us</h2>
+        <p class="lead" data-aos="fade-up" data-aos-delay="100">Meet the team behind World Classic Photography, connecting talented creators with clients worldwide to bring creative visions to life.</p>
+        <div id="aboutUsCarousel" class="carousel slide services-carousel carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card about-card">
+                        <img src="https://www.massaudubon.org/var/site/storage/images/6/9/1/9/1599196-2-eng-US/d5fa670e8399-6339Alison_Leedham34635-1920x1280-794dc64e-d77c-4e85-b945-8f8dabbd20f1.jpg" class="card-img-top" alt="Our Mission">
+                        <div class="card-body">
+                            <h5 class="card-title">Our Mission</h5>
+                            <p class="card-text">At World Classic Photography, we empower photographers and editors to collaborate seamlessly, delivering exceptional creative services to clients globally.</p>
+                            <p class="team-info">Founded by a passionate team of creatives in 2020.</p>
+                            <a href="/about" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card about-card">
+                        <img src="https://www.josejeuland.com/wp-content/uploads/2022/03/beautiful-view-froma-camera.jpg" class="card-img-top" alt="Our Team">
+                        <div class="card-body">
+                            <h5 class="card-title">Our Team</h5>
+                            <p class="card-text">A diverse group of photographers, developers, and designers dedicated to building a platform that fosters creativity and collaboration.</p>
+                            <p class="team-info">Led by CEO Jane Doe, with over 15 years in the creative industry.</p>
+                            <a href="/team" class="btn btn-primary">Meet the Team</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card about-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6qjYGkQv7lsrht3oSTaYAJhGXLYJKtkscHA&s" class="card-img-top" alt="Our Vision">
+                        <div class="card-body">
+                            <h5 class="card-title">Our Vision</h5>
+                            <p class="card-text">To create a global community where clients and creators connect effortlessly, producing world-class photography and videography.</p>
+                            <p class="team-info">Serving over 1,000 clients and creators worldwide.</p>
+                            <a href="/vision" class="btn btn-primary">Our Goals</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#aboutUsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#aboutUsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        
+    </div>
+</section>
+        
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>About World Classic</h5>
+                        <p>Your one-stop platform for world-class photography, videography, and editing services.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/browse">Browse Services</a></li>
+                            <li><a href="/profile">My Profile</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Follow Us</h5>
+                        <a href="#"><i class="fab fa-facebook fa-2x me-2"></i></a>
+                        <a href="#"><i class="fab fa-instagram fa-2x me-2"></i></a>
+                        <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p>© 2025 World Classic Photography. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Typed.js -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <!-- Vanilla Tilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS with delay
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                AOS.init({
+                    duration: 1000,
+                    once: true
+                });
+            }, 100);
+        });
+
+        $(document).ready(function() {
+            // Initialize tooltips
+            $('[data-bs-toggle="tooltip"]').tooltip({ trigger: 'hover', container: 'body' });
+
+            // Typing Animation for How It Works
+            new Typed('#how-it-works-title', {
+                strings: ['How It Works', 'Join Our Platform', 'Create with Us'],
+                typeSpeed: 60,
+                backSpeed: 40,
+                backDelay: 1500,
+                loop: true
+            });
+
+            // Initialize Tilt Effect on Cards
+            VanillaTilt.init(document.querySelectorAll('.service-card, .trending-card, .user-flow-card, .review-card'), {
+                max: 12,
+                speed: 400,
+                glare: true,
+                'max-glare': 0.4
+            });
+
+            // Sidebar toggle with improved handling
+            $('#sidebarToggle').on('click', function(e) {
+                e.preventDefault();
+                $('#floatingSidebar').addClass('open');
+                $('.sidebar-content').fadeIn(300);
+            });
+
+            $('#sidebarClose').on('click', function(e) {
+                e.preventDefault();
+                $('#floatingSidebar').removeClass('open');
+                $('.sidebar-content').fadeOut(200);
+            });
+
+            // Ensure sidebar closes when clicking outside on larger screens
+            $(document).on('click', function(e) {
+                if ($(window).width() >= 768 && $('#floatingSidebar').hasClass('open')) {
+                    if (!$(e.target).closest('#floatingSidebar').length && !$(e.target).closest('#sidebarToggle').length) {
+                        $('#floatingSidebar').removeClass('open');
+                        $('.sidebar-content').fadeOut(200);
+                    }
+                }
+            });
+        });
+
+        // Background image transition
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.bg-image');
+            let currentIndex = 0;
+            const transitionTime = 12000;
+            function transitionToNextImage() {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }
+            setInterval(transitionToNextImage, transitionTime);
+            const directions = ['center', 'top', 'bottom', 'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right'];
+            images.forEach((img, index) => {
+                const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+                img.style.backgroundPosition = randomDirection;
+                const animationName = `kenburns-${index}`;
+                const keyframes = `@keyframes ${animationName} { 0% { transform: scale(1); } 50% { transform: scale(${1 + Math.random() * 0.2}); } 100% { transform: scale(1); } }`;
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+                img.style.animation = `${animationName} ${transitionTime/1000}s infinite`;
+            });
+        });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', function() {
+            const liveBackground = document.querySelector('.live-background');
+            const scrollPosition = window.scrollY;
+            liveBackground.style.top = -scrollPosition + 'px';
+        });
+    </script>
+</body>
+</html>
